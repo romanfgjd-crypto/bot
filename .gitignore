@@ -1,3 +1,4 @@
+
 .env
 *.pyc
 __pycache__/
@@ -6,3 +7,5 @@ screenshots/
 .DS_Store
 venv/
 *.log
+.venv/
+local_settings.pys

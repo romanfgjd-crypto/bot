@@ -1,3 +1,30 @@
+import os
+
+# Перевірка чи ми на сервері
+IS_SERVER = os.getenv('RENDER') or os.getenv('PYTHONANYWHERE_SITE') or not os.getenv('DISPLAY')
+
+if IS_SERVER:
+    print("🖥️  Запуск у серверному режимі (без GUI залежностей)")
+    
+    # Створюємо заглушки для сервера
+    import sys
+    
+    class ScreenshotServiceStub:
+        @staticmethod
+        def take_screenshot():
+            return {"success": False, "error": "Скріншоти тільки локально"}
+        
+        @staticmethod
+        def take_and_analyze_screenshot():
+            return {"success": False, "error": "Скріншоти тільки локально"}
+    
+    # Створюємо фейковий модуль
+    import types
+    screenshot_module = types.ModuleType('screenshot_service')
+    screenshot_module.ScreenshotService = ScreenshotServiceStub
+    sys.modules['screenshot_service'] = screenshot_module
+
+
 import asyncio
 from aiogram import Bot, Dispatcher, Router
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, BufferedInputFile
