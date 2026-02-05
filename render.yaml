@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ai-telegram-bot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python bot_runner.py
+    envVars:
+      - key: BOT_TOKEN
+        value: your_bot_token_here
+      - key: GEMINI_API_KEY
+        value: your_gemini_api_key_here
+    plan: free
